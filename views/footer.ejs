@@ -1,9 +1,22 @@
 <div class="fly-footer">
-			<p>
-				<a href="http://fly.layui.com/" target="_blank">Wang.Blog</a> 2019 &copy; <a href="http://www.layui.com/" target="_blank">wpl.wiki
-				</a>
-			</p>
-		</div>
-	
-	</body>
+	<p>
+		<a href="http://fly.layui.com/" target="_blank">Wang.Blog</a> 2019 &copy; <a href="http://www.layui.com/" target="_blank">wpl.wiki
+		</a>
+	</p>
+</div>
+<script>
+	layui.config({
+			version: "3.0.0",
+			base: "/mods/"
+		})
+		.extend({
+			common: "common"
+		});
+	layui.use(["common", "jquery", "element"], function() {
+		var common = layui.common;
+		var element = layui.element;
+		element.init();
+	});
+</script>
+</body>
 </html>
