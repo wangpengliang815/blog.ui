@@ -2,11 +2,120 @@
 <div class="layui-container">
 	<div class="layui-row layui-col-space15">
 		<div class="layui-col-md8">
-			<%- include('components/left') %>
+			<div class="fly-panel">
+				<div class="fly-panel-title fly-filter">
+					<a>置顶</a>
+				</div>
+				<ul class="fly-list" id="importance">
+
+				</ul>
+			</div>
+			<div class="fly-panel" style="margin-bottom: 0;">
+				<div class="fly-panel-title fly-filter">
+					<a href="" class="layui-this">未结</a>
+					<span class="fly-mid"></span>
+					<a href="">已结</a>
+					<span class="fly-mid"></span>
+					<a href="">精华</a>
+					<span class="fly-filter-right layui-hide-xs">
+						<a href="" class="layui-this">按最新</a>
+						<span class="fly-mid"></span>
+						<a href="">按热议</a>
+					</span>
+				</div>
+				<ul class="fly-list">
+					<li>
+						<h2>
+							<a class="layui-badge">类别</a>
+							<a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
+						</h2>
+						<div class="fly-list-info">
+							<span>时间</span>
+
+							<span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> 点赞数</span>
+							<span class="layui-badge fly-badge-accept layui-hide-xs">完结状态</span>
+							<span class="fly-list-nums">
+								<i class="iconfont icon-pinglun1" title="回答"></i> 评论数
+							</span>
+						</div>
+						<div class="fly-list-badge"></div>
+					</li>
+				</ul>
+				<div style="text-align: center">
+					<div class="laypage-main">
+						<a href="jie/index.html" class="laypage-next">更多</a>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="layui-col-md4">
-			<%- include('components/right') %>
+			<div class="fly-panel">
+				<h3 class="fly-panel-title">代码仓库</h3>
+				<ul class="fly-panel-main fly-list-static">
+					<li>
+						<a href="http://fly.layui.com/jie/4281/" target="_blank">layui 的 GitHub 及 Gitee (码云) 仓库，欢迎Star</a>
+					</li>
+				</ul>
+			</div>
+
+			<dl class="fly-panel fly-list-one">
+				<dt class="fly-panel-title">热议</dt>
+				<dd>
+					<a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
+					<span><i class="iconfont icon-pinglun1"></i> 16</span>
+				</dd>
+			</dl>
+
+			<div class="fly-panel fly-link">
+				<h3 class="fly-panel-title">友情链接</h3>
+			</div>
+
 		</div>
 	</div>
 </div>
 <%- include('footer') %>
+<script id="importance-tpl" type="text/html">
+	{{each data.itemList value i}}
+			<li>
+			<h2>
+			<a class="layui-badge">{{value.categoryName}}</a>
+			<a href="article/detail.html">{{value.title}}</a>
+			</h2>
+			<div class="fly-list-info">
+			<span>{{value.updateTime}}</span>
+			<span class="layui-badge fly-badge-accept layui-hide-xs">完结状态</span>
+			<span class="fly-list-nums">
+			<i class="iconfont icon-pinglun1" title="回答"></i> 评论数
+			</span>
+			</div>
+			<div class="fly-list-badge">
+			</div>
+			</li>
+	{{/each}}
+</script>
+
+<script>
+	layui.config({
+		version: "3.0.0",
+		base: '/mods/'
+	}).extend({
+		common: 'common'
+	});
+	layui.use(['common', 'jquery', 'element'], function() {
+		var element = layui.element;
+		var common = layui.common;
+		var $ = layui.jquery;
+		common.ajax('http://localhost:5000/api/Article/1/21', 'get', 'json', {}, function(res) {
+			if (res.success) {
+				if (res.data.itemList.length > 0) {
+					console.log(res);
+					var html = template("importance-tpl", res);
+					document.getElementById('importance').innerHTML = html;
+				}
+			} else {
+				alert(res.message);
+			}
+		});
+		element.init();
+	});
+</script>

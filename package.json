@@ -12,6 +12,9 @@
     "art-template": "^4.13.2",
     "ejs": "^3.0.1",
     "express": "^4.14.0",
-    "express-art-template": "^1.0.1"
+    "express-art-template": "^1.0.1",
+    "jquery": "^3.4.1",
+    "jsdom": "^15.2.1",
+    "layui-src": "^2.5.5"
   }
 }

@@ -26,7 +26,10 @@ app.set("view engine", "ejs");
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
 
+// 启用静态资源
 app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/json"));
+
 app.use("/", indexRouter);
 app.use("/users", userRouter);
 
