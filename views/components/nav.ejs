@@ -1,0 +1,32 @@
+<div class="fly-header layui-bg-black">
+  <div class="layui-container">
+    <ul class="layui-nav">
+      <% if (success) { %>
+      <h2>
+        <%= message %>
+      </h2>
+      <% var firstMenu =getFirstMenu(data);%>
+      <ul>
+        <li class="layui-nav-item">
+          <a href="case/case.html">
+            <i class="iconfont icon-iconmingxinganli"></i>代码示例
+          </a>
+        </li>
+        <% for(var i = 0; i < firstMenu.length; i++) { %>
+        <li class="layui-nav-item">
+          <a href="javascript()"> <%= firstMenu[i].name %></a>
+          <% var secondMenu = getSecondMenu(data,firstMenu[i].id);%> <% if
+          (secondMenu && secondMenu.length>0) { %>
+          <dl class="layui-nav-child">
+            <% for(var j = 0; j < secondMenu.length; j++) { %>
+            <dd><a href=""> <%=secondMenu[j].name %></a></dd>
+            <% } %>
+          </dl>
+          <% } %>
+        </li>
+        <% } %>
+      </ul>
+      <% } %>
+    </ul>
+  </div>
+</div>
