@@ -1,12 +1,17 @@
 const express = require("express");
 const router = express.Router();
+var menu;
+//访问本地json
+var fs = require('fs');
+fs.readFile('./json/menu.json', function(err, data) {
+	if (err) {
+		return console.error(err);
+	}
+	menu = JSON.parse(data.toString());
+})
 
-var request = require('request');
 router.get("/", function(req, res) {
-	request('http://localhost:5000/api/Category', function(error, response, data) {
-		if (!error && response.statusCode == 200) {
-			res.render("index", JSON.parse(data));
-		}
-	})
+	// res.render("index", menu);
+	res.render('index.html',menu);
 });
 module.exports = router;

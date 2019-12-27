@@ -1,0 +1,45 @@
+<div class="fly-header layui-bg-black">
+	<div class="layui-container">
+		<ul class="layui-nav">
+			{{if success}}
+			<h1>{{message}}</h1>
+			{{set firstMenu = getFirstMenu(data)}}
+			<ul>
+				<li class='layui-nav-item'>
+					<a href='case/case.html'><i class='iconfont icon-iconmingxinganli'></i>代码示例</a>
+				</li>
+				{{each firstMenu value i}}
+				<li class='layui-nav-item'>
+					<a href="javascript()">{{value.name}}</a>
+					{{set secondMenu = getSecondMenu(data,value.id)}}
+					{{if secondMenu && secondMenu.length>0}}
+					<dl class="layui-nav-child">
+						{{each secondMenu value i}}
+						<dd><a href=''>{{value.name}}</a></dd>
+						{{/each}}
+					</dl>
+					{{/if}}
+				</li>
+				{{/each}}
+			</ul>
+			{{/if}}
+		</ul>
+	</div>
+</div>
+<div class="fly-panel fly-column">
+	<div class="layui-container">
+		<ul class="layui-clear">
+			<li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
+			<li>
+				<a href="jie/index.html">讨论<span class="layui-badge-dot"></span></a>
+			</li>
+			<li><a href="jie/index.html">讨论</a></li>
+			<li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
+				<span class="fly-mid"></span>
+			</li>
+		</ul>
+		<div class="fly-column-right layui-hide-xs">
+			<span class="fly-search"><i class="layui-icon"></i></span>
+		</div>
+	</div>
+</div>
