@@ -1,41 +1,81 @@
-<div class="fly-header layui-bg-black">
-	<div class="layui-container">
-		<ul class="layui-nav">
-			{{if menu.success}}
-			{{set firstMenu = getFirstMenu(menu.data)}}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Wang.Blog</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<meta name="keywords" content="wpl,wpl.wiki" />
+		<meta name="description" content="wangpengliang个人笔记" />
+		<link rel="stylesheet" href="/layui/css/layui.css" />
+		<link rel="stylesheet" href="/css/global.css" />
+		<script src="/layui/layui.js"></script>
+		<script src="art-template.js"></script>
+		<script type="text/html" id="menu-tpl">
+			{{set firstMenu = getFirstMenu(data)}}
 			<ul>
 				{{each firstMenu value i}}
-				<li class='layui-nav-item'>
+				<li class="layui-nav-item">
 					<a href="">{{value.name}}</a>
-					{{set secondMenu = getSecondMenu(menu.data,value.id)}}
-					{{if secondMenu && secondMenu.length>0}}
+					{{set secondMenu = getSecondMenu(data,value.id)}}
+					{{if secondMenu && secondMenu.length > 0}}
 					<dl class="layui-nav-child">
 						{{each secondMenu value i}}
-						<dd><a href=''>{{value.name}}</a></dd>
+						<dd><a href="">{{value.name}}</a></dd>
 						{{/each}}
 					</dl>
 					{{/if}}
 				</li>
 				{{/each}}
 			</ul>
-			{{/if}}
-		</ul>
-	</div>
-</div>
-<div class="fly-panel fly-column">
-	<div class="layui-container">
-		<ul class="layui-clear">
-			<li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
-			<li>
-				<a href="">占坑<span class="layui-badge-dot"></span></a>
-			</li>
-			<li><a href="">占坑</a></li>
-			<li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
-				<span class="fly-mid"></span>
-			</li>
-		</ul>
-		<div class="fly-column-right layui-hide-xs">
-			<span class="fly-search"><i class="layui-icon"></i></span>
+		</script>
+	<script>
+		layui.use(["common", "jquery", "element", "layer"], function() {
+			var element = layui.element;
+			var common = layui.common;
+			var $ = layui.jquery;
+			var layer = layui.layer;
+			$(function() {
+				common.ajax("http://localhost:5000/api/Category", "get", "json", {}, function(res) {
+					console.log(res)
+					// var html = template("menu-tpl", res);
+					// document.getElementById("menu").innerHTML = html;
+					// if (res.success) {
+					// 	if (res.data.length > 0) {
+					// 		var html = template("menu-tpl", res);
+					// 		console.log(html)
+					// 		document.getElementById("menu").innerHTML = html;
+					// 	}
+					// } else {
+					// 	layer.message(res.message);
+					// }
+					element.init();
+				});
+			});
+		});
+	</script>
+	</head>
+	<body>
+		<div class="fly-header layui-bg-black">
+			<div class="layui-container">
+				<ul class="layui-nav" id="menu">
+
+				</ul>
+			</div>
 		</div>
-	</div>
-</div>
+		<div class="fly-panel fly-column">
+			<div class="layui-container">
+				<ul class="layui-clear">
+					<li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
+					<li>
+						<a href="">占坑<span class="layui-badge-dot"></span></a>
+					</li>
+					<li><a href="">占坑</a></li>
+					<li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
+						<span class="fly-mid"></span>
+					</li>
+				</ul>
+				<div class="fly-column-right layui-hide-xs">
+					<span class="fly-search"><i class="layui-icon"></i></span>
+				</div>
+			</div>
+		</div>

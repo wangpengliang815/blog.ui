@@ -5,14 +5,15 @@ const express = require("express");
 
 const app = express();
 
-app.locals.getFirstMenu = function(data) {
-	return data.filter(function(item) {
+app.locals.getFirstMenu = function (data) {
+	console.log(data)
+	return data.filter(function (item) {
 		return item.parentId === 0;
 	});
 };
 
-app.locals.getSecondMenu = function(data, id) {
-	return data.filter(function(item) {
+app.locals.getSecondMenu = function (data, id) {
+	return data.filter(function (item) {
 		return item.parentId === id;
 	});
 };
@@ -26,13 +27,12 @@ app.engine('html', require('express-art-template'));
 
 // 挂载根路由控制器
 const indexRouter = require("./routes/index");
-const userRouter = require("./routes/user");
+const articleRouter = require("./routes/article");
 
 // 启用静态资源
 app.use(express.static(__dirname + "/public"));
-app.use(express.static(__dirname + "/json"));
 
 app.use("/", indexRouter);
-app.use("/users", userRouter);
+app.use("/article", articleRouter);
 
 app.listen(3000);
