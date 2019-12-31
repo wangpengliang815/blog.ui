@@ -1,6 +1,4 @@
-{{ extend './public/layout.html' }}
-
-{{ block 'content' }}
+{{ extend './public/layout.html' }} {{ block 'content' }}
 <div>
 	<div class="layui-container">
 		<div class="layui-row layui-col-space15">
@@ -10,7 +8,25 @@
 						<a>置顶</a>
 					</div>
 					<ul class="fly-list" id="importance">
-
+						{{if importance.success}}
+						{{each importance.data.itemList value i}}
+								<li>
+								<h2>
+								<a class="layui-badge">{{value.categoryName}}</a>
+								<a href="article/detail.html">{{value.title}}</a>
+								</h2>
+								<div class="fly-list-info">
+								<span>{{value.updateTime}}</span>
+								<span class="layui-badge fly-badge-accept layui-hide-xs">完结状态</span>
+								<span class="fly-list-nums">
+								<i class="iconfont icon-pinglun1" title="回答"></i> 评论数
+								</span>
+								</div>
+								<div class="fly-list-badge">
+								</div>
+								</li>
+						{{/each}}
+						{{/if}}
 					</ul>
 				</div>
 				<div class="fly-panel" style="margin-bottom: 0;">
@@ -56,13 +72,16 @@
 					<h3 class="fly-panel-title">代码仓库,欢迎Star</h3>
 					<ul class="fly-panel-main fly-list-static">
 						<li>
-							<a href="https://github.com/wangpengliang815/blog.git" target="_blank">blog.api </a>
+							<a href="https://github.com/wangpengliang815/blog.git" target="_blank">blog.api
+							</a>
 						</li>
 						<li>
-							<a href="https://github.com/wangpengliang815/blog.ui.git" target="_blank">blog.ui </a>
+							<a href="https://github.com/wangpengliang815/blog.ui.git" target="_blank">blog.ui
+							</a>
 						</li>
 						<li>
-							<a href="https://github.com/wangpengliang815/blog.admin.vueAdmin.git" target="_blank">blog.admin </a>
+							<a href="https://github.com/wangpengliang815/blog.admin.vueAdmin.git" target="_blank">blog.admin
+							</a>
 						</li>
 					</ul>
 				</div>
@@ -71,67 +90,25 @@
 					<a href="">占坑占坑占坑占坑占坑占坑占坑占坑</a>
 					<span><i class="iconfont icon-pinglun1"></i> 16</span>
 				</dl>
-
 				<div class="fly-panel fly-link">
 					<h3 class="fly-panel-title">友链</h3>
 				</div>
-
 			</div>
 		</div>
 	</div>
 </div>
-{{ /block }}
-
-{{ block 'script' }}
-<script id="importance-tpl" type="text/html">
-	{{each data.itemList value i}}
-			<li>
-			<h2>
-			<a class="layui-badge">{{value.categoryName}}</a>
-			<a href="article/detail.html">{{value.title}}</a>
-			</h2>
-			<div class="fly-list-info">
-			<span>{{value.updateTime}}</span>
-			<span class="layui-badge fly-badge-accept layui-hide-xs">完结状态</span>
-			<span class="fly-list-nums">
-			<i class="iconfont icon-pinglun1" title="回答"></i> 评论数
-			</span>
-			</div>
-			<div class="fly-list-badge">
-			</div>
-			</li>
-	{{/each}}
-</script>
-<script>
-	layui.config({
-		version: "3.0.0",
-		base: '/mods/'
-	}).extend({
-		common: 'common'
-	});
-	layui.use(['common', 'jquery', 'element', 'layer'], function() {
-		var element = layui.element;
-		var common = layui.common;
-		var $ = layui.jquery;
-		var layer = layui.layer;
-		common.ajax('http://localhost:5000/api/Article/1/21', 'get', 'json', {}, function(res) {
-			console.log(res)
-			if (res.success) {
-				if (res.data.itemList.length > 0) {
-					var html = $.get('./template/importance.html', function(data) {
-						var str = template(data, res);
-						document.getElementById('importance').innerHTML = str;
-					});
-
-					console.log(html);
-					// var html = template("importance-tpl", res);
-					// console.log(html)
-					// document.getElementById('importance').innerHTML = html;
-				}
-			} else {
-				layer.message(res.message);
-			}
+{{ /block }} {{ block 'script' }}
+ <script>
+	layui
+		.config({
+			version: "3.0.0",
+			base: "/mods/"
+		})
+		.extend({
+			common: "common"
 		});
+	layui.use(["common", "jquery", "element", "layer"], function() {
+		var element = layui.element;
 		element.init();
 	});
 </script>
